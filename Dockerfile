@@ -13,16 +13,16 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs build-essential
 
 # deply yanagishima
-RUN cd $TMP_PATH && git checkout -b 22.0 refs/tags/22.0
-
-RUN cd $TMP_PATH/web && npm install node-sass popper.js
+RUN cd $TMP_PATH && git checkout -b 22.0 refs/tags/22.0 && \
+    cd $TMP_PATH/web && npm install node-sass popper.js
 
 RUN cd $TMP_PATH && ./gradlew distZip && \
     cd build/distributions && \
     unzip -d /opt yanagishima-$VERSION.zip && \
-    ln -sf /opt/yanagishima-$VERSION /opt/yanagishima && \
+    ln -sf /opt/yanagishima-$VERSION $YANAGISHIMA_HOME && \
+    sed -i 's/"$@" &/"$@"/g' $YANAGISHIMA_HOME/bin/yanagishima-start.sh && \
     rm -rf $TMP_PATH
 
-WORKDIR /opt/yanagishima
+WORKDIR $YANAGISHIMA_HOME
 
 CMD bin/yanagishima-start.sh
