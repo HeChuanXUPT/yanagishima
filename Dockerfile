@@ -4,7 +4,6 @@ MAINTAINER tinyshrimp@163.com
 
 COPY . /tmp/yanagishima
 
-ENV VERSION 22.0
 ENV YANAGISHIMA_HOME /opt/yanagishima
 ENV TMP_PATH /tmp/yanagishima
 
@@ -15,10 +14,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
 # deply yanagishima
 RUN cd $TMP_PATH/web && npm install node-sass popper.js
 
-RUN cd $TMP_PATH && ./gradlew distZip && \
+RUN cd $TMP_PATH && ./gradlew build -x test && \
     cd build/distributions && \
-    unzip -d /opt yanagishima-$VERSION.zip && \
-    ln -sf /opt/yanagishima-$VERSION $YANAGISHIMA_HOME && \
+    unzip -d /opt yanagishima.zip && \
     sed -i 's/"$@" &/"$@"/g' $YANAGISHIMA_HOME/bin/yanagishima-start.sh && \
     rm -rf $TMP_PATH
 
