@@ -17,9 +17,8 @@ RUN cd $TMP_PATH/web && npm install node-sass popper.js
 RUN cd $TMP_PATH && ./gradlew build -x test && \
     cd build/distributions && \
     unzip -d /opt yanagishima.zip && \
-    sed -i 's/"$@" &/"$@"/g' $YANAGISHIMA_HOME/bin/yanagishima-start.sh && \
     rm -rf $TMP_PATH
 
 WORKDIR $YANAGISHIMA_HOME
 
-CMD bin/yanagishima-start.sh
+CMD bin/yanagishima-run.sh
