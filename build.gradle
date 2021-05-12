@@ -135,6 +135,10 @@ dependencies {
     implementation 'io.prestosql:presto-parser:347'
     implementation 'com.squareup.okhttp3:okhttp'
 
+    // Trino
+    implementation 'io.trino:trino-client:355'
+    implementation 'io.trino:trino-parser:355'
+
     // Spark
     implementation 'org.apache.httpcomponents:fluent-hc'
     implementation 'org.jsoup:jsoup:1.11.3'
